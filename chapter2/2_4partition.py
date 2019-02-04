@@ -30,7 +30,7 @@ def printLL(head):
     print("")
 
 printLL(head)
-partition(head,10)
+partition(head,5)
 
 printLL(head)
 

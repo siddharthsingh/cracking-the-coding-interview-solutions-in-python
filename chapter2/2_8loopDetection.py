@@ -32,6 +32,37 @@ def contains_cycle(head):
         head = head.next
     return False
 
+
+def contains_cycle2(head):
+    """
+
+    :param head: head of list
+    :return: The start of the loop in list if it exists, False if no loop
+    :method: using fast and slow pointers
+    """
+
+    fast_pointer = head
+    slow_pointer = head
+
+    while fast_pointer and fast_pointer.next:
+        fast_pointer = fast_pointer.next.next
+        slow_pointer = slow_pointer.next
+        if fast_pointer == slow_pointer:
+            break
+
+    if not fast_pointer or not fast_pointer.next:
+        return False
+
+    slow_pointer = head
+
+    while slow_pointer != fast_pointer:
+        slow_pointer = slow_pointer.next
+        fast_pointer = fast_pointer.next
+    return slow_pointer
+
+
+
+
 def printLL(head):
     while head:
         print(head.data,end=", ")
@@ -40,5 +71,5 @@ def printLL(head):
 
 # printLL(head)
 printLL(head2)
-print(contains_cycle(head))
-print(contains_cycle(head2))
+print(contains_cycle2(head).data)
+print(contains_cycle2(head2))

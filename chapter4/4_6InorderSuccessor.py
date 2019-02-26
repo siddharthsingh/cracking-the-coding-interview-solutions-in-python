@@ -32,20 +32,26 @@ root38.parent = root39
 
 
 def inorder_successor(node):
-    if not node.parent:
-        if not node.right:
-            return -1
+    if node.right:
         node = node.right
         while node.left:
             node = node.left
         return node
+    if not node.parent:
+        return -1
+    q = node
+    p = node.parent
+    while p and p.left != q:
+        q = p
+        p = p.parent
 
-    while node.parent and node.parent.left != node:
-        node = node.parent
 
-    return node.parent if node.parent else -1
+
+    return p if p else -1
 
 
 print(inorder_successor(root311))
 print(inorder_successor(root39))
 print(inorder_successor(root313))
+print(inorder_successor(root310))
+print(inorder_successor(root3))

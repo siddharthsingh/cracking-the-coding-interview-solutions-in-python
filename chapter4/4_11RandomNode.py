@@ -5,6 +5,7 @@ class Node():
         self.left = None
         self.right = None
         self.parent = None
+        self.count = 0
 
 
     def __str__(self):
@@ -111,24 +112,48 @@ def delete(root,val):
         node.parent.right = None
     temp.name = node.name
 
+def assign_count(root):
+    if not root:
+        return 0
+    left_c = assign_count(root.left)
+    right_c = assign_count(root.right)
+    root.count = left_c + right_c + 1
+    return root.count
+
+def get_ith_node(root, i):
+    if not root:
+        return
+    if root.left and i< root.left.count:
+        return get_ith_node(root.left,i)
+    elif root.right and i > root.right.count:
+        return get_ith_node(root.right,root.right.count - i)
+    else:
+        return get_ith_node(root.right,i)
+
+def get_random_node2(root):
+    assign_count(root)
+    random_no = random.randint(root.count)
+    return get_ith_node(root,random_no)
+
+
 count = count_nodes(root3)
 store_nodes_in_list(root3)
-print(get_random())
-print(get_random())
-print(get_random())
-print(get_random())
-print(get_random())
-print(get_random())
-insert(root3,2)
-print(count_nodes(root3))
-
-print(find(root3,99))
-print(find(root3,13))
-print(find(root3,12))
-print(find(root3,1))
-
-print(count_nodes(root3))
-delete(root3,9)
-print(root310.left,"Asda")
-print(count_nodes(root3))
-print(root310.left)
+# print(get_random())
+# print(get_random())
+# print(get_random())
+# print(get_random())
+# print(get_random())
+# print(get_random())
+# insert(root3,2)
+# print(count_nodes(root3))
+#
+# print(find(root3,99))
+# print(find(root3,13))
+# print(find(root3,12))
+# print(find(root3,1))
+#
+# print(count_nodes(root3))
+# delete(root3,9)
+# print(root310.left,"Asda")
+# print(count_nodes(root3))
+# print(root310.left)

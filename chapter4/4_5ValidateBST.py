@@ -1,3 +1,6 @@
+# Can also be done with inorder traversal by keeping track of previous element
+
+
 class Node():
     def __init__(self,name):
         self.name = name
@@ -48,7 +51,7 @@ root310.left = root39
 root310.right = root311
 root39.left = root38
 
-
+# wrong solution
 def bst_is_valid(root):
     if not root:return True
     a = True

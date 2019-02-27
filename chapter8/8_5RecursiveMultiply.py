@@ -1,41 +1,29 @@
-def multiply(num1,num2):
-    if num1==0 or num2 == 0:
-        return 0
-    n = num2
-    num = num1
-    count = 0
-    while n>>1:
-        num1 <<= 1
-        n >>= 1
-        count+=1
-    # print(num1,count)
-    global store
-    store[1] = num
-    store[0] = 0
-
-    if count:
-        remaining = num2 - 2**count
-        return num1 + rec(num, remaining)
+def rec_mul(num1,num2):
+    """
+    The idea behind this recursive multiply is simple. If num2 is divisible by 2 we calculate the multiplication result
+    of num1 and num2/2 and then double the result.
+    If num2 is odd we do the same as even and then add num1 in the end
+    """
+    if num2 == 1:
+        return num1
+    if num2%2:
+        num2 = num2>>1
+        return (rec_mul(num1,num2)<<1)+num1
     else:
-        remaining = num2
+        num2 = num2>>1
+        return rec_mul(num1,num2)<<1
 
-
-    return rec(num,remaining)
-store = {}
-
-def rec(num1,num2):
-    global store
-    # print(num1,num2)
-    if num2 in store:
-        return store[num2]
-    mid = num2//2
-    a = rec(num1,mid)
-    b = rec(num1,num2-mid)
-    store[num2] = a+b
-    return a+b
-
-# print(multiply(50,110))
-# assert multiply(5,10)==5*10, "Not equal"
-# assert multiply(50,110)==50*110, "Not equal"
-# assert multiply(5,1)==5*1, "Not equal"
-assert multiply(15,2)==15*2, "Not equal"
+def mul(num1,num2):
+    """
+    The time complexity of this algorithm is O(log s) where s i s smaller number.
+    That is why we check which number is smaller initaially before calling rec_mul
+    :param num1:
+    :param num2:
+    :return:
+    """
+    return rec_mul(num1,num2) if num1>num2 else rec_mul(num2,num1)
+print(rec_mul(5,10),5*10)
+assert rec_mul(5,10)==5*10, "Not equal"
+assert rec_mul(50,110)==50*110, "Not equal"
+assert rec_mul(5,1)==5*1, "Not equal"
+assert rec_mul(15,2)==15*2, "Not equal"

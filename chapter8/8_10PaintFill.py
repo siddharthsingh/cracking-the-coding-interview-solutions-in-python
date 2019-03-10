@@ -10,11 +10,25 @@ grid = [
 n = (len(grid))
 m = (len(grid[0]))
 
-# def using_dfs(r,c):
-#     if r>=len(grid):
-#         return
-#     using_dfs(r+1,c)
-#     for i
+
+"""
+This is a simple graph traversla problem. You can solve it using BFS or DFS. 
+The time complexity would be same for both which is O(mn) as in the worst case all the cells of the matrix might need
+to be colored.
+"""
+
+
+def using_dfs(r,c, old_color, new_color):
+    # if row or column goes beyond bounds of matrix return
+    if r<0 or c<0 or r>len(grid)-1 or c > len(grid[0])-1:
+        return
+    if grid[r][c] == old_color:
+        grid[r][c] = new_color
+        using_dfs(r-1,c,old_color,new_color) #go up
+        using_dfs(r+1,c,old_color,new_color) #go down
+        using_dfs(r,c-1,old_color,new_color) #go left
+        using_dfs(r,c+1,old_color,new_color) #go right
+
 
 def get_valid_neighbours(point):
     ans = []
@@ -29,6 +43,8 @@ def get_valid_neighbours(point):
     return ans
 
 parent = {}
+
+
 def find_way():
     q = queue.Queue()
     q.put((0,0))
@@ -42,6 +58,7 @@ def find_way():
             grid[valid_nieghbour[0]][valid_nieghbour[1]] = -1
             q.put(valid_nieghbour)
 
-find_way()
+# find_way()
+using_dfs(0,0,0,2)
 print(grid)
 

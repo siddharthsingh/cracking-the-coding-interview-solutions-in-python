@@ -1,18 +1,30 @@
-def faster_sol(self, to_open, to_close):
+def faster_sol(to_open, to_close):
+    """
+    This algorithm we keep track of open parenthesis(left '(' ) and close parenthesis
+    At each step we have two options to add '(' to the result or ')'.
+    We only add ')' if the number of to open is less, that means we have used more '(' than ')'
+
+    The time complexity of this algorithm should be O(2^n)
+    T(n) = 2T(n-1)
+    Space complexity would be O(n) for stack, if we ignore the space required for output.
+    :param to_open:
+    :param to_close:
+    :return:
+    """
     if not to_open and not to_close:
         return ['']
     if not to_open and to_close:
         return [')' * to_close]
     res = []
     if to_close - to_open:
-        a = self.faster_sol(to_open - 1, to_close)
+        a = faster_sol(to_open - 1, to_close)
         if a:
             res.extend(['(' + s for s in a])
-        b = self.faster_sol(to_open, to_close - 1)
+        b = faster_sol(to_open, to_close - 1)
         if b:
             res.extend([')' + s for s in b])
     else:
-        a = self.faster_sol(to_open - 1, to_close)
+        a = faster_sol(to_open - 1, to_close)
         if a:
             res.extend(['(' + s for s in a])
     return res
@@ -32,5 +44,6 @@ def rec(self, n):
             if caa not in ans:
                 ans.append(caa)
             i -= 1
-
     return sorted(ans)
+n = 5
+print(len(faster_sol(n,n)))
